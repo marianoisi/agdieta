@@ -63,7 +63,7 @@ public class Dieta {
 
 	/**
 	 * Configura la funcion de aptitud, el cromosoma,
-	 * el tamaño de la poblacion, y luego genera la poblacion
+	 * el tamano de la poblacion, y luego genera la poblacion
 	 * inicial.
 	 * 
 	 * @param conf
@@ -80,12 +80,12 @@ public class Dieta {
 		// Configurar el cromosoma en base a un cromosoma de ejemplo
 		Gene[] ejemplo = new Gene[DIAS_DIETA];
 		for (int i=0; i<= DIAS_DIETA; i++) {
-			ejemplo[i] = new Comida(conf);
+			ejemplo[i] = new Dia(conf);
 		}
 		Chromosome cromosoma = new Chromosome(conf, ejemplo);
 		conf.setSampleChromosome(cromosoma);
 		
-		// Configurar el tamaño de la poblacion
+		// Configurar el tamano de la poblacion
 		conf.setPopulationSize(POBLACION);
 		
 		// Generar poblacion inicial
