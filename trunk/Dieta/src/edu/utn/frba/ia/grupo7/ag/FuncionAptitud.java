@@ -23,4 +23,9 @@ public class FuncionAptitud extends FitnessFunction {
 		return 0;
 	}
 
+	public String dia(int i, IChromosome solucion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
