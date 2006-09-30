@@ -19,11 +19,11 @@ public class FuncionAptitud extends FitnessFunction {
 	 */
 	@Override
 	protected double evaluate(IChromosome individuo) {
-		double sumaIds = 0;
+		double calorias = 10000;
 		for(Gene dia : individuo.getGenes()) {
-			sumaIds += ((Comida) dia.getAllele()).getId();
+			calorias -= ((Comida) dia.getAllele()).getCalorias();
 		}
-		return sumaIds;
+		return calorias;
 	}
 
 }

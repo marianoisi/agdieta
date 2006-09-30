@@ -3,36 +3,32 @@ package edu.utn.frba.ia.grupo7.ag;
 
 public enum Comida {
 	
-	COMIDA1(0),
-	COMIDA2(1),
-	COMIDA3(2),
-	COMIDA4(3),
-	COMIDA5(4),
-	COMIDA6(5),
-	COMIDA7(6),
-	COMIDA8(7),
-	COMIDA9(8),
-	COMIDA10(9),
-	COMIDA11(10),
-	COMIDA12(11),
-	COMIDA13(12),
-	COMIDA14(13),
-	COMIDA15(14),
-	COMIDA16(15)
+	COMIDA0(0, "comida a", 20),
+	COMIDA1(1, "comida b", 40),
+	COMIDA2(2, "comida c", 60),
+	COMIDA3(3, "comida d", 80),
+	COMIDA4(4, "comida e", 100),
+	COMIDA5(5, "comida f", 120),
+	COMIDA6(6, "comida g", 140),
+	COMIDA7(7, "comida h", 160),
+	COMIDA8(8, "comida i", 180),
+	COMIDA9(9, "comida j", 200),
+	COMIDA10(10, "comida k", 220),
+	COMIDA11(11, "comida l", 240),
+	COMIDA12(12, "comida m", 260),
+	COMIDA13(13, "comida n", 280),
+	COMIDA14(14, "comida o", 300),
+	COMIDA15(15, "comida p", 320)
 	;
 	
 	private int id;
-	//private String nombre;
+	private String nombre;
+	private int calorias;
 	
-	private Comida(int id) {
+	private Comida(int id, String nombre, int calorias) {
 		this.id = id;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
+		this.nombre = nombre;
+		this.calorias = calorias;
 	}
 	
 	/**
@@ -49,5 +45,29 @@ public enum Comida {
 		}
 		return null;
 	}
+
+	public int getCalorias() {
+		return calorias;
+	}
+
+	public void setCalorias(int calorias) {
+		this.calorias = calorias;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 
 }
