@@ -110,7 +110,7 @@ public class Dieta {
 		
 		for (int i=0; i < DIAS_DIETA; i++) {
 			System.out.println("Dia " + (i+1) + ": " + 
-					solucion.getGene(i).getAllele());
+					((Comida)solucion.getGene(i).getAllele()).getNombre());
 		}
 	}
 
