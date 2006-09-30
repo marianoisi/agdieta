@@ -4,10 +4,10 @@
 package edu.utn.frba.ia.grupo7.ag;
 
 import org.jgap.FitnessFunction;
+import org.jgap.Gene;
 import org.jgap.IChromosome;
 
 /**
- * @author pablo
  *
  */
 public class FuncionAptitud extends FitnessFunction {
@@ -18,14 +18,12 @@ public class FuncionAptitud extends FitnessFunction {
 	 * @see org.jgap.FitnessFunction#evaluate(org.jgap.IChromosome)
 	 */
 	@Override
-	protected double evaluate(IChromosome a_subject) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public String dia(int i, IChromosome solucion) {
-		// TODO Auto-generated method stub
-		return null;
+	protected double evaluate(IChromosome individuo) {
+		double sumaIds = 0;
+		for(Gene dia : individuo.getGenes()) {
+			sumaIds += ((Comida) dia.getAllele()).getId();
+		}
+		return sumaIds;
 	}
 
 }

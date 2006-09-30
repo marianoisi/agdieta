@@ -21,7 +21,7 @@ public class Dieta {
 	/*
 	 * Cantidad de individuos en la poblacion
 	 */
-	private static int POBLACION = 100;
+	private static int POBLACION = 500;
 	
 	/*
 	 * Cantidad de dias que tiene la dieta
@@ -53,11 +53,17 @@ public class Dieta {
 		// mutacion a lo largo de MAX_GENERACIONES generaciones
 		population.evolve(MAX_GENERACIONES);
 
-		// Obtener el mejor individuo de la generacion actual
+		for(Object cromo : population.getFittestChromosomes(2)) {
+			IChromosome cromosoma = (IChromosome) cromo;
+			System.out.println(cromosoma.getFitnessValue());
+			mostrarDieta(cromosoma);
+		}
+		
+/*		// Obtener el mejor individuo de la generacion actual
 		IChromosome solucion = population.getFittestChromosome();
 
 		// Imprimir solucion obtenida
-		mostrarDieta(solucion, funcionAptitud);
+		mostrarDieta(solucion, funcionAptitud);*/
 		
 	}
 
@@ -79,7 +85,7 @@ public class Dieta {
 
 		// Configurar el cromosoma en base a un cromosoma de ejemplo
 		Gene[] ejemplo = new Gene[DIAS_DIETA];
-		for (int i=0; i<= DIAS_DIETA; i++) {
+		for (int i=0; i< DIAS_DIETA; i++) {
 			ejemplo[i] = new Dia(conf);
 		}
 		Chromosome cromosoma = new Chromosome(conf, ejemplo);
@@ -100,12 +106,11 @@ public class Dieta {
 	 * @param solucion
 	 * @param funcionAptitud
 	 */
-	private static void mostrarDieta(IChromosome solucion, 
-			FuncionAptitud funcionAptitud) {
+	private static void mostrarDieta(IChromosome solucion) {
 		
-		for (int i=1; i <= DIAS_DIETA; i++) {
-			System.out.println("Dia " + i + ": " + 
-					funcionAptitud.dia(i, solucion));
+		for (int i=0; i < DIAS_DIETA; i++) {
+			System.out.println("Dia " + (i+1) + ": " + 
+					solucion.getGene(i).getAllele());
 		}
 	}
 

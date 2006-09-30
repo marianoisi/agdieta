@@ -20,26 +20,28 @@ public class Dia extends BaseGene implements Gene {
 	
 	@Override
 	protected Object getInternalValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return comida;
 	}
 
 	@Override
 	protected Gene newGeneInternal() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return new Dia(getConfiguration());
+		} catch (InvalidConfigurationException iex) {
+			throw new IllegalStateException(iex.getMessage());
+		}
 	}
 
 	@Override
-	public void applyMutation(int arg0, double arg1) {
+	public void applyMutation(int indice, double porcentaje) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void setToRandomValue(RandomGenerator arg0) {
-		// TODO Auto-generated method stub
-
+	public void setToRandomValue(RandomGenerator randomGenerator) {
+		Comida comida = Comida.getFromId(
+				randomGenerator.nextInt(Comida.values().length));
+		setAllele(comida);
 	}
 
 	@Override
@@ -58,15 +60,32 @@ public class Dia extends BaseGene implements Gene {
 	}
 
 	@Override
-	public void setAllele(Object arg0) {
-		// TODO Auto-generated method stub
-
+	public void setAllele(Object comida) {
+		this.comida = (Comida) comida;
 	}
 
 	@Override
-	public int compareTo(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Object otherGene) {
+		Dia otroDia = (Dia) otherGene;
+		if (otroDia == null || otroDia.getAllele() == null) {
+			return 1;
+		} else if (this.comida == null) {
+			return -1;
+		}
+		Integer id = this.comida.getId();
+		Integer otroId = ((Comida)otroDia.getAllele()).getId();
+		return id.compareTo(otroId);
+	}
+	
+	@Override
+	public boolean equals(Object otherGene) {
+		Dia otroDia = (Dia) otherGene;
+		if(otroDia == null) {
+			return false;
+		} else if (this.comida == null) {
+			return otroDia.getAllele() == null;
+		}
+		return this.comida.equals(otroDia.getAllele());
 	}
 	
 }
