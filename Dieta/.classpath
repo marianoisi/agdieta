@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/TableLayout.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit-addons-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/jgap-examples.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
