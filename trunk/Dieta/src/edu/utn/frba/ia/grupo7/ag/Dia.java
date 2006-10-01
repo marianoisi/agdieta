@@ -10,8 +10,9 @@ import org.jgap.UnsupportedRepresentationException;
 public class Dia extends BaseGene implements Gene {
 
 	private static final long serialVersionUID = 1L;
+	private static final int MAX_COMIDAS = 4;
 	
-	private Comida comida;
+	private Comida[] comidas;
 	
 
 	public Dia(Configuration a_configuration) throws InvalidConfigurationException {
@@ -20,7 +21,7 @@ public class Dia extends BaseGene implements Gene {
 	
 	@Override
 	protected Object getInternalValue() {
-		return comida;
+		return comidas;
 	}
 
 	@Override
@@ -34,14 +35,26 @@ public class Dia extends BaseGene implements Gene {
 
 	@Override
 	public void applyMutation(int indice, double porcentaje) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void setToRandomValue(RandomGenerator randomGenerator) {
-		Comida comida = Comida.getFromId(
-				randomGenerator.nextInt(Comida.values().length));
-		setAllele(comida);
+		// Definir las 4 comidas del dia
+		Comida[] comidas = new Comida[MAX_COMIDAS];
+		
+		// Generar un desayuno
+		comidas[0] = Desayuno.getRandom(randomGenerator);
+		
+		// Generar un almuerzo
+		comidas[1] = Almuerzo.getRandom(randomGenerator);
+		
+		// Generar una merienda
+		comidas[2] = Desayuno.getRandom(randomGenerator);
+		
+		// Generar una cena
+		comidas[3] = Almuerzo.getRandom(randomGenerator);
+		
+		setAllele(comidas);
 	}
 
 	@Override
@@ -60,8 +73,8 @@ public class Dia extends BaseGene implements Gene {
 	}
 
 	@Override
-	public void setAllele(Object comida) {
-		this.comida = (Comida) comida;
+	public void setAllele(Object comidas) {
+		this.comidas = (Comida[]) comidas;
 	}
 
 	@Override
@@ -69,12 +82,10 @@ public class Dia extends BaseGene implements Gene {
 		Dia otroDia = (Dia) otherGene;
 		if (otroDia == null || otroDia.getAllele() == null) {
 			return 1;
-		} else if (this.comida == null) {
+		} else if (this.comidas == null) {
 			return -1;
 		}
-		Integer id = this.comida.getId();
-		Integer otroId = ((Comida)otroDia.getAllele()).getId();
-		return id.compareTo(otroId);
+		return getKcal().compareTo(otroDia.getKcal());
 	}
 	
 	@Override
@@ -82,10 +93,45 @@ public class Dia extends BaseGene implements Gene {
 		Dia otroDia = (Dia) otherGene;
 		if(otroDia == null) {
 			return false;
-		} else if (this.comida == null) {
+		} else if (this.comidas == null) {
 			return otroDia.getAllele() == null;
 		}
-		return this.comida.equals(otroDia.getAllele());
+		
+		// Dos dias son iguales si todas sus comidas son iguales
+		Comida[] otrasComidas = (Comida[]) otroDia.getAllele();
+		boolean diasIguales = true;
+		for(int i = 0; i < MAX_COMIDAS; i++) {
+			diasIguales &= this.comidas[i].equals(otrasComidas[i]);
+		}
+		return diasIguales;
+	}
+	
+	public Integer getKcal() {
+		int kcal = 0;
+		Comida[] comidas = (Comida[]) getAllele();
+
+		if (comidas == null) {
+			return 0;
+		}
+		
+		for (int i = 0; i < comidas.length; i++) {
+			kcal += comidas[i].getKcal();
+		}
+		return kcal;
+	}
+	
+	@Override
+	public String toString() {
+		if (this.comidas == null) {
+			return "";
+		}
+		
+		StringBuffer str = new StringBuffer();
+		str.append("Desayuno: " + this.comidas[0].toString() + "\n");
+		str.append("Almuerzo: " + this.comidas[1].toString() + "\n");
+		str.append("Merienda: " + this.comidas[2].toString() + "\n");
+		str.append("Cena: " + this.comidas[3].toString() + "\n");
+		return new String(str);
 	}
 	
 }
