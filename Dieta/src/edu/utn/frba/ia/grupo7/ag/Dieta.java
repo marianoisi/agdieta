@@ -42,28 +42,28 @@ public class Dieta {
 		FuncionAptitud funcionAptitud = new FuncionAptitud();
 		
 		// Generar poblacion inicial
-		Genotype population = null;
+		Genotype poblacion = null;
 		try {
-			population = generarPoblacionInicial(conf, funcionAptitud);
+			poblacion = generarPoblacionInicial(conf, funcionAptitud);
 		} catch (InvalidConfigurationException e) {
 			System.out.println("Error inicializando");
 		}
 		
 		// Operar geneticamente mediante seleccion, cruzamiento y
 		// mutacion a lo largo de MAX_GENERACIONES generaciones
-		population.evolve(MAX_GENERACIONES);
+		poblacion.evolve(MAX_GENERACIONES);
 
-		for(Object cromo : population.getFittestChromosomes(2)) {
-			IChromosome cromosoma = (IChromosome) cromo;
-			System.out.println(cromosoma.getFitnessValue());
-			mostrarDieta(cromosoma);
-		}
+//		for(Object cromo : poblacion.getFittestChromosomes(2)) {
+//			IChromosome cromosoma = (IChromosome) cromo;
+//			System.out.println(cromosoma.getFitnessValue());
+//			mostrarDieta(cromosoma);
+//		}
 		
-/*		// Obtener el mejor individuo de la generacion actual
-		IChromosome solucion = population.getFittestChromosome();
+		// Obtener el mejor individuo de la generacion actual
+		IChromosome solucion = poblacion.getFittestChromosome();
 
 		// Imprimir solucion obtenida
-		mostrarDieta(solucion, funcionAptitud);*/
+		mostrarDieta(solucion);
 		
 	}
 
@@ -95,9 +95,9 @@ public class Dieta {
 		conf.setPopulationSize(POBLACION);
 		
 		// Generar poblacion inicial
-		Genotype population = Genotype.randomInitialGenotype(conf);
+		Genotype poblacion = Genotype.randomInitialGenotype(conf);
 		
-		return population;
+		return poblacion;
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class Dieta {
 	private static void mostrarDieta(IChromosome solucion) {
 		
 		for (int i=0; i < DIAS_DIETA; i++) {
-			System.out.println("Dia " + (i+1) + ": " + 
-					((Comida)solucion.getGene(i).getAllele()).getNombre());
+			System.out.println("Dia " + (i+1) + " (" + ((Dia)solucion.getGene(i)).getKcal() + "): \n" + 
+					solucion.getGene(i).toString());
 		}
 	}
 
