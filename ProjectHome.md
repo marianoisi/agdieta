@@ -1,0 +1,1 @@
+Arma una dieta en base a calorias y gustos del usuario, y utilizando un algoritmo genético
